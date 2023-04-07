@@ -60,8 +60,8 @@ class Config extends \yii\base\Model {
     public function attributeHints() {
 		
         return [
-            'vrfdUsersIds' => Yii::t('VerifiedIconModule.admin', 'Enter the user IDs seperated by comma, e.g. <code>1,21</code>'),
-            'vrfdSpacesIds' => Yii::t('VerifiedIconModule.admin', 'Enter the space IDs seperated by comma, e.g. <code>1,21</code>'),
+            'vrfdUsersIds' => Yii::t('VerifiedIconModule.admin', 'Enter the user IDs seperated by comma, e.g. <code>1,21</code>') . '<br />' . Yii::t('VerifiedIconModule.admin', 'To find the ID of a user go to Administration > Users and edit the user.'),
+            'vrfdSpacesIds' => Yii::t('VerifiedIconModule.admin', 'Enter the space IDs seperated by comma, e.g. <code>1,21</code>') . '<br />' . Yii::t('VerifiedIconModule.admin', 'To find the ID of a space go to Administration > Spaces and hover over the "Edit" option. The end of the shown link indicates the ID.'),
         ];
     }
 
