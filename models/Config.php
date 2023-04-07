@@ -1,0 +1,130 @@
+<?php
+
+namespace humhub\modules\verifiedIcon\models;
+
+use Yii;
+use humhub\modules\verifiedIcon\Module;
+use humhub\modules\user\models\User;
+use humhub\modules\space\models\Space;
+
+/**
+ * ConfigureForm defines the configurable fields.
+ */
+class Config extends \yii\base\Model {
+	
+    // Module settings, see Module.php
+    public $vrfdUsersIds;
+	public $vrfdSpacesIds;
+	public $cssContent;
+    
+    public static function isVerifiedUser($containerId) {
+	    
+        $module = Yii::$app->getModule('verified-icon');
+		$vrfdUsersIdsArray = explode(',', $module->settings->get('verified-users-ids'));
+		
+		if (in_array($containerId, $vrfdUsersIdsArray)) {
+			return true;
+		}
+		return false;
+    }
+	
+    public static function isVerifiedSpace($containerId) {
+	    
+        $module = Yii::$app->getModule('verified-icon');
+        $vrfdUsersIdsArray = explode(',', $module->settings->get('verified-spaces-ids'));
+        
+		if (in_array($containerId, $vrfdUsersIdsArray)) {
+			return true;
+		}
+		return false;
+    }
+	
+    public function init() {
+    
+        parent::init();
+		$module = Yii::$app->getModule('verified-icon');
+        
+        $this->vrfdUsersIds = $module->settings->get('verified-users-ids');
+		$this->vrfdSpacesIds = $module->settings->get('verified-spaces-ids');
+    }
+    
+    public function attributeLabels() {
+        
+        // Note: the attribute name in uppercase is used as fallback
+        return [
+            'vrfdUsersIds' => Yii::t('VerifiedIconModule.admin', 'Verified Users'),
+            'vrfdSpacesIds' => Yii::t('VerifiedIconModule.admin', 'Verified Spaces'),
+        ];
+    }
+	
+    public function attributeHints() {
+		
+        return [
+            'vrfdUsersIds' => Yii::t('VerifiedIconModule.admin', 'Enter the user IDs seperated by comma, e.g. <code>1,21</code>'),
+            'vrfdSpacesIds' => Yii::t('VerifiedIconModule.admin', 'Enter the space IDs seperated by comma, e.g. <code>1,21</code>'),
+        ];
+    }
+
+    public function rules() {
+    
+        return [
+            [['vrfdUsersIds', 'vrfdSpacesIds'], 'validateNumbersString'],
+        ];
+    }
+	
+    public function validateNumbersString($attribute, $params, $validator) {
+		
+        if (!preg_match("/^[0-9, ]*+$/", $this->$attribute)) {
+            $this->addError($attribute, Yii::t('VerifiedIconModule.admin', 'Invalid Format') . '. ' . Yii::t('VerifiedIconModule.admin', 'Must be a list of numbers, seperated by commas.'));
+        }
+    }
+	
+    public function save() {
+    
+        if(!$this->validate()) {
+            return false;
+        }
+		
+        $module = Yii::$app->getModule('verified-icon');
+        
+        // Save configuration for Social Controls and Verified Accounts
+        $module->settings->set('verified-users-ids', $this->vrfdUsersIds);
+        $module->settings->set('verified-spaces-ids', $this->vrfdSpacesIds);
+
+		self::saveCSS();
+		
+        return true;
+    }
+	
+	protected function saveCSS() {
+		$module = Yii::$app->getModule('verified-icon');
+		
+		$vrfdUsersIdsArray = explode(',', $this->vrfdUsersIds);
+		
+		$vrfdSpacesIdsArray = explode(',', $this->vrfdSpacesIds);
+		
+		$contentContainerIdsArray = array();
+		
+		foreach($vrfdUsersIdsArray as $userId){
+			if(!empty(User::findOne($userId))) {
+			    $contentContainerIdsArray[] = User::findOne($userId)->contentcontainer_id;
+			}
+		}
+		foreach($vrfdSpacesIdsArray as $spaceId){
+			if(!empty(User::findOne($spaceId))) {
+			    $contentContainerIdsArray[] = Space::findOne($spaceId)->contentcontainer_id;
+			}
+		}
+		
+		$cssContent = '';
+		
+		foreach($contentContainerIdsArray as $containerId) {
+			$cssContent .= '.card-title [data-contentcontainer-id="' . $containerId . '"]:after' . ',' .
+				'.media-heading [data-contentcontainer-id="' . $containerId . '"]:after' . ',' .
+				'.media-subheading [data-contentcontainer-id="' . $containerId . '"]:after' . ',';
+		}
+		
+		$cssContent .= 'h1.verified:after{content:"\\f058";font-family:"FontAwesome";margin:0px 0px 0px .3em;color:var(--info);}';
+		$module->settings->set('cssContent', $cssContent);
+	}
+}

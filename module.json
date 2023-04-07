@@ -1,0 +1,23 @@
+{
+    "id": "verified-icon",
+    "version": "0.1.0",
+    "name": "Verified Icon",
+    "description": "Verified Icon for Users and Spaces",
+    "humhub": {
+        "minVersion": "1.14"
+    },
+    "keywords": [
+        
+    ],
+    "screenshots": [
+        
+    ],
+    "homepage": "https://github.com/felixhahnweilheim",
+    "authors": [
+        {
+            "name": "Felix Hahn",
+            "email": "info@hahn-felix.de",
+            "role": "Developer"
+        }
+    ]  
+}
