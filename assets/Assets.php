@@ -13,7 +13,7 @@ class Assets extends AssetBundle
 {
     public $jsOptions = ['position' => \yii\web\View::POS_END];
     public $publishOptions = [
-        'forceCopy' => true // WIP
+        'forceCopy' => false
     ];
     public $sourcePath = '@verified-icon/resources';
     public $js = [
@@ -26,9 +26,7 @@ class Assets extends AssetBundle
      */
     public static function register($view)
     {
-        
-		
-		$cssContent = Yii::$app->getModule('verified-icon')->settings->get('cssContent');
+        $cssContent = Yii::$app->getModule('verified-icon')->settings->get('cssContent');
 		
 		if (!empty($cssContent)) {
 			
