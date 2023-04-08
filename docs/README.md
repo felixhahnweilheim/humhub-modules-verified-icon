@@ -1,6 +1,6 @@
 # Verified Icon for HumHub
 
-**Version: 0.1.0** (developped for HumHub 1.14)
+**Version: 0.1.1** (developped for HumHub 1.14)
 
 **Author:** Felix Hahn, info@hahn-felix.de - self-learned
 
