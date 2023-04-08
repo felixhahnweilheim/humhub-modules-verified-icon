@@ -15,7 +15,7 @@ class Config extends \yii\base\Model {
     // Module settings, see Module.php
     public $vrfdUsersIds;
 	public $vrfdSpacesIds;
-	public $cssContent;
+	//public $cssContent;
     
     public static function isVerifiedUser($containerId) {
 	    
@@ -125,6 +125,9 @@ class Config extends \yii\base\Model {
 		}
 		
 		$cssContent .= 'h1.verified:after{content:"\\f058";font-family:"FontAwesome";margin:0px 0px 0px .3em;color:var(--info);}';
-		$module->settings->set('cssContent', $cssContent);
+		
+		$cssFile = $module->getBasePath() . '/resources/css/verified.css';
+		file_put_contents($cssFile, $cssContent);
+		//$module->settings->set('cssContent', $cssContent);
 	}
 }

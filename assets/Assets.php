@@ -11,29 +11,20 @@ use yii\web\AssetBundle;
 
 class Assets extends AssetBundle
 {
-    public $jsOptions = ['position' => \yii\web\View::POS_END];
     public $publishOptions = [
         'forceCopy' => false
     ];
     public $sourcePath = '@verified-icon/resources';
-    public $js = [
-        'js/humhub.verified.icon.js'
-    ];
-
+    public $css = [
+		'css/verified.css'
+	];
+	
     /**
      * @param View $view
      * @return void|AssetBundle
      */
     public static function register($view)
     {
-        $cssContent = Yii::$app->getModule('verified-icon')->settings->get('cssContent');
-		
-		if (!empty($cssContent)) {
-			
-			parent::register($view);
-            $view->registerJsConfig('verified.icon', [
-                'cssContent' => $cssContent
-            ]);
-		}
+		parent::register($view);
     }
 }
