@@ -16,6 +16,6 @@ class Events
 	}
 	public static function onContainerProfileHeaderBeforeRun(WidgetCreateEvent $event)
 	{
-		    $event->config['class'] = ContainerProfileHeaderOverwrite::class;
+		$event->config['class'] = ContainerProfileHeaderOverwrite::class;
 	}
 }
