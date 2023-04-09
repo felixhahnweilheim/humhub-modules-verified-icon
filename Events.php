@@ -4,7 +4,6 @@ namespace humhub\modules\verifiedIcon;
 
 use humhub\modules\verifiedIcon\widgets\VrfdIconLoader;
 use humhub\modules\verifiedIcon\widgets\ContainerProfileHeaderOverwrite;
-use humhub\modules\verifiedIcon\widgets\WallStreamEntryWidgetOverwrite;
 use humhub\widgets\LayoutAddons;
 use humhub\libs\WidgetCreateEvent;
 
