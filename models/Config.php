@@ -130,8 +130,6 @@ class Config extends \yii\base\Model
 			unlink($cssFile);
 		}
 		
-		if (!empty($cssContent)) {
-		    file_put_contents($cssFile, $cssContent);
-		}
+		file_put_contents($cssFile, $cssContent);
 	}
 }
