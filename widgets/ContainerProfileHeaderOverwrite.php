@@ -21,8 +21,8 @@ class ContainerProfileHeaderOverwrite extends ContainerProfileHeader
 		}
 	}
 	
-	public function getViewPath()
-	{
+	public function getViewPath() {
 		return Yii::$app->getModule('content')->basePath . '/widgets/views/';
+		//return Yii::$app->view->theme->basePath . '/views/content/widgets/views/';
 	}
 }
