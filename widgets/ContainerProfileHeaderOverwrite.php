@@ -8,8 +8,8 @@ use humhub\modules\user\models\User;
 use humhub\modules\space\models\Space;
 use Yii;
 
-class ContainerProfileHeaderOverwrite extends ContainerProfileHeader {
-	
+class ContainerProfileHeaderOverwrite extends ContainerProfileHeader
+{	
 	public function init()
 	{
 		parent::init();
@@ -25,5 +25,4 @@ class ContainerProfileHeaderOverwrite extends ContainerProfileHeader {
 		return Yii::$app->getModule('content')->basePath . '/widgets/views/';
 		//return Yii::$app->view->theme->basePath . '/views/content/widgets/views/';
 	}
-	
 }

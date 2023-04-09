@@ -18,8 +18,4 @@ class Events
 	{
 		    $event->config['class'] = ContainerProfileHeaderOverwrite::class;
 	}
-	public static function onWallStreamEntryWidgetBeforeRun(WidgetCreateEvent $event)
-	{
-		//$event->config['class'] = WallStreamEntryWidgetOverwrite::class;
-	}
 }

@@ -2,20 +2,18 @@
 
 namespace humhub\modules\verifiedIcon\models;
 
-use Yii;
 use humhub\modules\verifiedIcon\Module;
 use humhub\modules\user\models\User;
 use humhub\modules\space\models\Space;
+use Yii;
 
 /**
  * ConfigureForm defines the configurable fields.
  */
-class Config extends \yii\base\Model {
-	
-    // Module settings, see Module.php
+class Config extends \yii\base\Model
+{	
     public $vrfdUsersIds;
 	public $vrfdSpacesIds;
-	//public $cssContent;
     
     public static function isVerifiedUser($containerId) {
 	    
@@ -50,7 +48,6 @@ class Config extends \yii\base\Model {
     
     public function attributeLabels() {
         
-        // Note: the attribute name in uppercase is used as fallback
         return [
             'vrfdUsersIds' => Yii::t('VerifiedIconModule.admin', 'Verified Users'),
             'vrfdSpacesIds' => Yii::t('VerifiedIconModule.admin', 'Verified Spaces'),
@@ -87,7 +84,6 @@ class Config extends \yii\base\Model {
 		
         $module = Yii::$app->getModule('verified-icon');
         
-        // Save configuration for Social Controls and Verified Accounts
         $module->settings->set('verified-users-ids', $this->vrfdUsersIds);
         $module->settings->set('verified-spaces-ids', $this->vrfdSpacesIds);
 
@@ -123,11 +119,19 @@ class Config extends \yii\base\Model {
 				'.media-heading [data-contentcontainer-id="' . $containerId . '"]:after' . ',' .
 				'.media-subheading [data-contentcontainer-id="' . $containerId . '"]:after' . ',';
 		}
+		if(!empty($cssContent)) {
+		    $cssContent .= 'h1.verified:after{content:"\\f058";font-family:"FontAwesome";margin:0px 0px 0px .3em;color:var(--info);}';
+		}
 		
-		$cssContent .= 'h1.verified:after{content:"\\f058";font-family:"FontAwesome";margin:0px 0px 0px .3em;color:var(--info);}';
+		$cssFile = $module->getBasePath() . '/resources/verified.css';
 		
-		$cssFile = $module->getBasePath() . '/resources/css/verified.css';
-		file_put_contents($cssFile, $cssContent);
-		//$module->settings->set('cssContent', $cssContent);
+		// Remove file to udpate timestamp of resources directory which tells Yii to recopy the asset file
+		if (file_exists($cssFile)) {
+			unlink($cssFile);
+		}
+		
+		if (!empty($cssContent)) {
+		    file_put_contents($cssFile, $cssContent);
+		}
 	}
 }

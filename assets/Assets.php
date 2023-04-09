@@ -16,7 +16,7 @@ class Assets extends AssetBundle
     ];
     public $sourcePath = '@verified-icon/resources';
     public $css = [
-		'css/verified.css'
+		'verified.css'
 	];
 	
     /**

@@ -22,11 +22,5 @@ return [
 			'event' => ContainerProfileHeader::EVENT_CREATE,
 			'callback' => [Events::class, 'onContainerProfileHeaderBeforeRun']
 		],
-	/*	[
-			'class' => WallStreamEntryWidget::class,
-			'event' => WallStreamEntryWidget::EVENT_CREATE,
-			'callback' => [Events::class, 'onWallStreamEntryWidgetBeforeRun']
-		],
-		*/
 	]
 ];
