@@ -1,5 +1,9 @@
 # Verified Icon for HumHub
 
+**This module is archived. Please use https://github.com/GreenMeteor/verified instead.**
+
+---
+
 **Version: 0.1.1** (developped for HumHub 1.14)
 
 **Author:** Felix Hahn, info@hahn-felix.de - self-learned
